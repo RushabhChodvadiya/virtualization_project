@@ -30,3 +30,12 @@ jobs:
             -t ${{ secrets.DOCKER_USERNAME }}/vir_server:latest \
             --push \
             "server"
+
+      - name: Build and push Docker image Client
+        run: |
+          docker buildx create --use
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            -t ${{ secrets.DOCKER_USERNAME }}/vir_client:latest \
+            --push \
+            "client"
