@@ -4,6 +4,10 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 
+// dotenv
+require("dotenv").config();
+
+
 // MySQL connection pool configuration
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST || "localhost",
