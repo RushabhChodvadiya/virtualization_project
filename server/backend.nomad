@@ -1,6 +1,9 @@
 job "backend" {
   datacenters = ["dc1"]
   type = "service"
+  meta {
+    git_sha = "[[.GIT_SHA]]"
+  }
   group "backend" {
     network {
       port "http" {

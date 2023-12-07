@@ -1,6 +1,9 @@
 job "frontend" {
   datacenters = ["dc1"]
   type = "service"
+  meta {
+    git_sha = "[[.GIT_SHA]]"
+  }
   group "frontend" {
     network {
       port "http" {
@@ -9,8 +12,8 @@ job "frontend" {
     }
     count = 5
     update {
-      max_parallel     = 1
-      canary           = 3
+      max_parallel     = 3
+      canary           = 5
       min_healthy_time = "30s"
       healthy_deadline = "5m"
       auto_revert      = true
