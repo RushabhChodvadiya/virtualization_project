@@ -39,3 +39,12 @@ jobs:
             -t ${{ secrets.DOCKER_USERNAME }}/vir_client:latest \
             --push \
             "client"
+
+      - name: Run levant commands
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl unzip
+          curl -L https://releases.hashicorp.com/levant/0.3.1/levant_0.3.1_linux_amd64.zip -o levant.zip
+          unzip levant.zip -d /usr/local/bin
+          levant deploy server/backend.nomad
+          levant deploy client/frontend.nomad
