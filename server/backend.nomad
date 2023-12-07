@@ -43,7 +43,7 @@ job "backend" {
       driver = "docker"
 
       config {
-        image          = "[[.IMAGE]]"
+        image          = "patelrushabh/vir_server:latest"
         ports          = ["http"]
         force_pull     = true
 
