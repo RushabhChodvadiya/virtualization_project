@@ -9,11 +9,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        image_name: [vir_server, vir_client]
-        folder_name: [server, client]
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
