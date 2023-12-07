@@ -11,8 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        platform: [linux/amd64, linux/arm64]
         image_name: [vir_server, vir_client]
+        folder_name: [server, client]
 
     steps:
       - name: Checkout Repository
@@ -31,10 +31,9 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx build \
-            --platform ${{ matrix.platform }} \
             -t ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image_name }}:latest \
             --push \
-            "${{ matrix.image_name }}"
+            "${{ matrix.folder_name }}"
 
       - name: Run levant commands
         run: |
