@@ -46,7 +46,7 @@ jobs:
           sudo apt-get install -y curl unzip
           curl -L https://releases.hashicorp.com/levant/0.3.1/levant_0.3.1_linux_amd64.zip -o levant.zip
           unzip levant.zip -d /usr/local/bin
-          export NOMAD_ADDR=http://http://35.237.251.213:4646/
+          export NOMAD_ADDR=http://35.237.251.213:4646/
           export NOMAD_TOKEN=70e169da-6b91-b3a1-0579-a433926e285c
           levant deploy server/backend.nomad
           levant deploy client/frontend.nomad
