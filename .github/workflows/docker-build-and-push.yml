@@ -9,6 +9,11 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        platform: [linux/amd64, linux/arm64]
+        image_name: [vir_server, vir_client]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -22,23 +27,14 @@ jobs:
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image server
+      - name: Build and push Docker image
         run: |
           docker buildx create --use
           docker buildx build \
-            --platform linux/amd64,linux/arm64 \
-            -t ${{ secrets.DOCKER_USERNAME }}/vir_server:latest \
+            --platform ${{ matrix.platform }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image_name }}:latest \
             --push \
-            "server"
-
-      - name: Build and push Docker image Client
-        run: |
-          docker buildx create --use
-          docker buildx build \
-            --platform linux/amd64,linux/arm64 \
-            -t ${{ secrets.DOCKER_USERNAME }}/vir_client:latest \
-            --push \
-            "client"
+            "${{ matrix.image_name }}"
 
       - name: Run levant commands
         run: |
@@ -46,5 +42,7 @@ jobs:
           sudo apt-get install -y curl unzip
           curl -L https://releases.hashicorp.com/levant/0.3.1/levant_0.3.1_linux_amd64.zip -o levant.zip
           unzip levant.zip -d /usr/local/bin
+          export NOMAD_ADDR=http://http://35.237.251.213:4646/
+          export NOMAD_TOKEN=70e169da-6b91-b3a1-0579-a433926e285c
           levant deploy server/backend.nomad
           levant deploy client/frontend.nomad
