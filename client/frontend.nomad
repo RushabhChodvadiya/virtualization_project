@@ -1,5 +1,6 @@
 job "frontend" {
   datacenters = ["dc1"]
+  type = "service"
   group "frontend" {
     network {
       port "http" {
