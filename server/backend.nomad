@@ -6,7 +6,7 @@ job "backend" {
         to = 5000
       }
     }
-    count = 9
+    count = 3
     update {
       max_parallel     = 1
       canary           = 3

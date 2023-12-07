@@ -6,7 +6,7 @@ job "frontend" {
         to = 3000
       }
     }
-    count = 3
+    count = 5
     update {
       max_parallel     = 1
       canary           = 3
