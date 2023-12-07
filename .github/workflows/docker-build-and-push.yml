@@ -48,5 +48,6 @@ jobs:
           unzip levant.zip -d /usr/local/bin
           export NOMAD_ADDR=http://35.237.251.213:4646/
           export NOMAD_TOKEN=70e169da-6b91-b3a1-0579-a433926e285c
-          levant deploy -var GIT_SHA="${{ env.GIT_SHA }}" server/backend.nomad
+          
+          levant deploy -var GIT_SHA="${{ env.GIT_SHA }}" -var IMAGE="`docker images --format "{{.Repository}}:{{.Tag}}@{{.Digest}}" | grep ${{ secrets.DOCKER_USERNAME }}/vir_server:latest`" server/backend.nomad
           levant deploy -var GIT_SHA="${{ env.GIT_SHA }}" client/frontend.nomad

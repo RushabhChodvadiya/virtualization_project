@@ -12,7 +12,7 @@ job "backend" {
     }
     count = 3
     update {
-      max_parallel     = 1
+      max_parallel     = 3
       canary           = 3
       min_healthy_time = "30s"
       healthy_deadline = "5m"
@@ -43,7 +43,7 @@ job "backend" {
       driver = "docker"
 
       config {
-        image          = "patelrushabh/vir_server:latest"
+        image          = "[[.IMAGE]]"
         ports          = ["http"]
         force_pull     = true
 
